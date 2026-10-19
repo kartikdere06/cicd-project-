@@ -1,7 +1,7 @@
 variable "bucket_name" {
   type        = string
   description = " enter your unique bucket name "
-default = "kartik_test_cide_bucket"
+default = "kartiktestcidebucket"
 
 }
 variable "aws_region" {
