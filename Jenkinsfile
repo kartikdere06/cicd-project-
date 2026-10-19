@@ -32,6 +32,7 @@ pipeline {
 
         stage('Terraform Format') {
             steps {
+                sh 'terraform fmt -recursive'
                 sh 'terraform fmt -check -recursive'
             }
         }
@@ -61,7 +62,7 @@ pipeline {
 
         stage('Approval') {
             steps {
-                input message: 'Review the Terraform plan in the build log. Approve infrastructure changes?',
+                input message: 'Review the Terraform plan output and approve the infrastructure changes only if they are correct.',
                       ok: 'Approve'
             }
         }
@@ -83,8 +84,7 @@ pipeline {
         }
 
         always {
-            sh 'rm -f tfplan'
-            deleteDir()
+            sh 'rm -f tfplan || true'
         }
     }
 }
